@@ -10,6 +10,27 @@
   //justify-content: center;
   align-items: stretch;
   overflow: hidden;
+  &::before {
+    content: "";
+    cursor: pointer;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 49;
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .menu-open & {
+    &::before {
+      content: "";
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
 }
 
 .main {
@@ -22,8 +43,8 @@
   width: 100%;
   max-width: 100%;
   padding: 0px 30px;
-  @media (min-width: 2559px) {
-    max-width: 2560px;
+  @media (min-width: 1821px) {
+    max-width: 1820px;
   }
   @media (max-width: 992px) {
     padding: 0px 20px;

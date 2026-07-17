@@ -15,27 +15,8 @@ body {
   .popup-show & {
     overflow: hidden;
   }
-  &::before {
-    content: "";
-    cursor: pointer;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 49;
-    background: rgba(0, 0, 0, 0.6);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s;
-  }
   .menu-open & {
     overflow: hidden;
-    &::before {
-      content: "";
-      opacity: 1;
-      pointer-events: auto;
-    }
   }
 }
 
@@ -76,27 +57,38 @@ a {
   text-align: center;
   border-radius: 4px;
   font-weight: 400;
-  font-size: 1.2vw;
+  font-size: clamp(12px, 1.2vw, 22px);
   line-height: 120%;
   color: var(--color-golden);
-  min-height: 35px;
+  min-height: clamp(30px, 35px, 35px);
   border: 2px solid var(--color-golden);
-  padding: 0.5vw 2.4vw;
-  gap: 1vw;
+  padding: clamp(6px, 0.5vw, 9px) clamp(20px, 2.4vw, 44px);
+  gap: clamp(10px, 1vw, 18px);
   transition:
     background-color 0.3s,
-    color 0.3s;
+    color 0.3s,
+    border 0.3s;
+
   &:hover {
     color: var(--color-black);
     background-color: var(--color-golden);
   }
+
   img {
-    width: 2.6vw;
+    width: clamp(15px, 2.6vw, 47px);
     height: auto;
-    flex: 0 0 2.6vw;
-    @media (max-width: 992px) {
-      width: 15px;
-      flex: 0 0 15px;
+    flex: 0 0 clamp(15px, 2.6vw, 47px);
+  }
+  &.btn-border {
+    font-weight: 700;
+    border: 2px solid var(--color-black);
+    color: var(--color-black);
+    padding: clamp(10px, 0.5vw, 9px) clamp(20px, 1.5vw, 27px);
+    font-size: clamp(12px, 1vw, 18px);
+    border-radius: 8px;
+    &:hover {
+      color: #fff;
+      background-color: var(--color-black);
     }
   }
   &.btn-blue {
@@ -105,64 +97,37 @@ a {
     border: 1px solid transparent;
     color: #fff;
     border-radius: 8px;
-    font-size: 1.5vw;
-    padding: 1.7vw 2vw;
-    width: 23vw;
+    font-size: clamp(12px, 1.5vw, 27px);
+    padding: clamp(15px, 1.7vw, 31px) clamp(20px, 2vw, 36px);
+    width: clamp(fit-content, 23vw, 419px);
+    gap: clamp(10px, 1.5vw, 27px);
+
     &:hover {
       opacity: 0.7;
     }
-    @media (max-width: 992px) {
-      width: fit-content;
-      font-size: 14px;
-      padding: 15px 30px;
-      gap: 10px;
-    }
-    @media (max-width: 768px) {
-      padding: 15px 20px;
-      font-size: 12px;
-    }
   }
+
   &.btn-big {
-    padding: 1vw 3.7vw 1vw 2vw;
-    font-size: 1.4vw;
-    gap: 1.5vw;
+    padding: clamp(10px, 1vw, 18px) clamp(20px, 3.7vw, 67px) clamp(10px, 1vw, 18px) clamp(20px, 2vw, 36px);
+    font-size: clamp(12px, 1.4vw, 26px);
+    gap: clamp(10px, 1.5vw, 27px);
     transition: opacity 0.3s;
+
     &:hover {
       opacity: 0.7;
       background-color: transparent;
       color: var(--color-golden);
     }
-    @media (max-width: 992px) {
-      font-size: 14px;
-      padding: 10px 30px;
-      gap: 10px;
-    }
-    @media (max-width: 768px) {
-      padding: 10px 20px;
-      font-size: 12px;
-    }
-  }
-  @media (max-width: 992px) {
-    font-size: 14px;
-    gap: 10px;
-    padding: 6px 30px;
-  }
-  @media (max-width: 768px) {
-    min-height: 30px;
-    padding: 6px 20px;
-    font-size: 12px;
   }
 }
 
 .title1 {
   font-family: var(--second-family);
   font-weight: 700;
-  font-size: 4.5vw;
+  font-size: clamp(32px, 4.5vw, 82px);
   line-height: 120%;
   color: #fff;
-  @media (max-width: 768px) {
-    font-size: 32px;
-  }
+
   span {
     background: linear-gradient(135deg, #f0c380 0%, #f0c380 40%, #f0c380 70%, #fdde8f 100%);
     -webkit-background-clip: text;
@@ -174,12 +139,6 @@ a {
 .title2 {
   font-family: var(--second-family);
   font-weight: 700;
-  font-size: 4.5vw;
+  font-size: clamp(32px, 4.5vw, 82px);
   line-height: 100%;
-  @media (max-width: 992px) {
-    font-size: 38px;
-  }
-  @media (max-width: 768px) {
-    font-size: 32px;
-  }
 }
