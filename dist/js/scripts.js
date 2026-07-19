@@ -166,67 +166,144 @@ if (iconMenu) {
 
 const sliders = document.querySelectorAll('.block-gallery__slider');
 
-if (sliders) {
+if (sliders.length) {
   sliders.forEach(slider => {
-    const wrapper = slider.querySelector('.block-gallery__wrapper');
+    const rows = slider.querySelectorAll('.block-gallery__row');
     const slides = slider.querySelectorAll('.block-gallery__slide');
 
-    if (!wrapper || slides.length === 0) return;
+    if (rows.length === 0 || slides.length === 0) return;
 
-    let position = 0;
-    let animationId;
-    const speed = 0.3;
-    let isPaused = false;
-    let isAnimating = false;
     let isDesktop = window.innerWidth >= 769;
+    let isAnimating = false;
+    let animationId = null;
+    let isPaused = false;
+    const speed = 0.3;
+    let resizeTimeout = null;
+    let lastTimestamp = 0;
 
-    function cloneSlides() {
+    const rowStates = new Map();
+    const rowHandlers = new Map();
+
+    function getTotalSize(row) {
+      return isDesktop ? row.scrollHeight : row.scrollWidth;
+    }
+
+    function getVisibleSize(row) {
+      return isDesktop ? row.parentElement.clientHeight : row.parentElement.clientWidth;
+    }
+
+    function cloneSlidesInRow(row) {
       const cloneCount = 4;
+      const originalSlides = row.querySelectorAll('.block-gallery__slide');
+      const fragment = document.createDocumentFragment();
+      const slidesArray = Array.from(originalSlides);
+
       for (let i = 0; i < cloneCount; i++) {
-        slides.forEach(slide => {
+        slidesArray.forEach(slide => {
           const clone = slide.cloneNode(true);
-          wrapper.appendChild(clone);
+          fragment.appendChild(clone);
         });
       }
+      row.appendChild(fragment);
     }
 
-    function removeClones() {
-      const allSlides = slider.querySelectorAll('.block-gallery__slide');
-      allSlides.forEach((slide, index) => {
-        if (index >= slides.length) {
-          slide.remove();
+    function removeClonesFromRow(row) {
+      const allSlides = row.querySelectorAll('.block-gallery__slide');
+      const originalCount = slides.length;
+
+      for (let i = allSlides.length - 1; i >= originalCount; i--) {
+        if (allSlides[i]) {
+          allSlides[i].remove();
         }
-      });
-      position = 0;
+      }
+
+      if (rowStates.has(row)) {
+        rowStates.set(row, 0);
+      }
+
+      resetRowTransform(row);
+    }
+
+    function resetRowTransform(row) {
+      const position = rowStates.get(row) || 0;
+      row.style.willChange = isDesktop ? 'transform' : 'transform';
       if (isDesktop) {
-        wrapper.style.transform = `translateY(0px)`;
+        row.style.transform = `translateY(${Math.round(position)}px)`;
       } else {
-        wrapper.style.transform = `translateX(0px)`;
+        row.style.transform = `translateX(${Math.round(position)}px)`;
       }
     }
 
-    function animate() {
+    function animateRow(row, timestamp) {
       if (!isAnimating) return;
 
       if (!isPaused) {
-        if (isDesktop) {
-          position -= speed;
-        } else {
-          position -= speed;
-        }
+        let position = rowStates.get(row) || 0;
 
-        const totalSize = isDesktop ? wrapper.scrollHeight : wrapper.scrollWidth;
+        const deltaTime = lastTimestamp ? (timestamp - lastTimestamp) / 16.67 : 1;
+        const step = speed * Math.min(deltaTime, 2);
+
+        position -= step;
+
+        const totalSize = getTotalSize(row);
+        const visibleSize = getVisibleSize(row);
+
         if (Math.abs(position) >= totalSize / 2) {
           position = 0;
         }
 
+        rowStates.set(row, position);
+
         if (isDesktop) {
-          wrapper.style.transform = `translateY(${position}px)`;
+          row.style.transform = `translateY(${Math.round(position * 100) / 100}px)`;
         } else {
-          wrapper.style.transform = `translateX(${position}px)`;
+          row.style.transform = `translateX(${Math.round(position * 100) / 100}px)`;
         }
+
+        row.style.transition = 'transform 0.05s linear';
       }
-      animationId = requestAnimationFrame(animate);
+    }
+
+    function animateAllRows(timestamp) {
+      if (!isAnimating) return;
+
+      if (timestamp) {
+        rows.forEach(row => {
+          animateRow(row, timestamp);
+        });
+        lastTimestamp = timestamp;
+      }
+
+      animationId = requestAnimationFrame(animateAllRows);
+    }
+
+    function setupRowHandlers(row) {
+      if (rowHandlers.has(row)) {
+        const oldHandlers = rowHandlers.get(row);
+        const allSlides = row.querySelectorAll('.block-gallery__slide');
+        allSlides.forEach(slide => {
+          slide.removeEventListener('mouseenter', oldHandlers.enter);
+          slide.removeEventListener('mouseleave', oldHandlers.leave);
+        });
+      }
+
+      const enterHandler = () => {
+        isPaused = true;
+        row.style.transition = 'none';
+      };
+
+      const leaveHandler = () => {
+        isPaused = false;
+        row.style.transition = 'transform 0.05s linear';
+      };
+
+      rowHandlers.set(row, { enter: enterHandler, leave: leaveHandler });
+
+      const allSlides = row.querySelectorAll('.block-gallery__slide');
+      allSlides.forEach(slide => {
+        slide.addEventListener('mouseenter', enterHandler);
+        slide.addEventListener('mouseleave', leaveHandler);
+      });
     }
 
     function startAnimation() {
@@ -234,42 +311,51 @@ if (sliders) {
 
       isDesktop = window.innerWidth >= 769;
 
-      removeClones();
-      cloneSlides();
+      rows.forEach(row => {
+        if (!rowStates.has(row)) {
+          rowStates.set(row, 0);
+        }
 
-      isAnimating = true;
+        row.style.willChange = 'transform';
 
-      const allSlides = slider.querySelectorAll('.block-gallery__slide');
-      allSlides.forEach(slide => {
-        slide.addEventListener('mouseenter', () => {
-          isPaused = true;
-        });
-
-        slide.addEventListener('mouseleave', () => {
-          isPaused = false;
-        });
+        removeClonesFromRow(row);
+        cloneSlidesInRow(row);
+        setupRowHandlers(row);
       });
 
-      animate();
+      isAnimating = true;
+      lastTimestamp = 0;
+      animateAllRows();
     }
 
     function stopAnimation() {
       isAnimating = false;
+
       if (animationId) {
         cancelAnimationFrame(animationId);
         animationId = null;
       }
-      removeClones();
-      const allSlides = slider.querySelectorAll('.block-gallery__slide');
-      allSlides.forEach(slide => {
-        slide.removeEventListener('mouseenter', () => { });
-        slide.removeEventListener('mouseleave', () => { });
-      });
-      isPaused = false;
-    }
 
-    function shouldAnimate() {
-      return slides.length > 1;
+      rows.forEach(row => {
+        if (rowHandlers.has(row)) {
+          const handlers = rowHandlers.get(row);
+          const allSlides = row.querySelectorAll('.block-gallery__slide');
+          allSlides.forEach(slide => {
+            slide.removeEventListener('mouseenter', handlers.enter);
+            slide.removeEventListener('mouseleave', handlers.leave);
+          });
+          rowHandlers.delete(row);
+        }
+
+        row.style.willChange = 'auto';
+        row.style.transition = 'none';
+
+        removeClonesFromRow(row);
+        rowStates.delete(row);
+      });
+
+      isPaused = false;
+      lastTimestamp = 0;
     }
 
     function checkAndToggle() {
@@ -284,7 +370,7 @@ if (sliders) {
         }
       }
 
-      if (shouldAnimate()) {
+      if (slides.length > 1) {
         if (!isAnimating) {
           startAnimation();
         }
@@ -297,12 +383,19 @@ if (sliders) {
 
     checkAndToggle();
 
-    let resizeTimeout;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(() => {
         checkAndToggle();
       }, 250);
+    });
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden && isAnimating) {
+        stopAnimation();
+      } else if (!document.hidden && slides.length > 1 && !isAnimating) {
+        startAnimation();
+      }
     });
   });
 }
@@ -312,3 +405,19 @@ if (sliders) {
 Fancybox.bind("[data-fancybox]", {
   // опции
 });
+
+//========================================================================================================================================================
+
+// Добавление к шапке при скролле
+const header = document.querySelector('.header');
+if (header) {
+  window.addEventListener('scroll', function () {
+    if (window.scrollY > 0) {
+      header.classList.add('_header-scroll');
+      document.documentElement.classList.add('header-scroll');
+    } else {
+      header.classList.remove('_header-scroll');
+      document.documentElement.classList.remove('header-scroll');
+    }
+  });
+}
