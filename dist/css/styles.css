@@ -811,6 +811,13 @@ a {
     padding: 50px 0px 0px 0px;
   }
 }
+.block-descr .btn img {
+  width: clamp(15px, 1.7vw, 47px);
+  height: auto;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 clamp(15px, 1.7vw, 47px);
+          flex: 0 0 clamp(15px, 1.7vw, 47px);
+}
 .block-descr__top {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -831,6 +838,11 @@ a {
   line-height: 150%;
 }
 
+@media (max-width: 768px) {
+  .block-contact-us {
+    padding: 0px 0px 50px 0px;
+  }
+}
 .block-contact-us__content {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -864,6 +876,28 @@ a {
 
 .block-offer {
   position: relative;
+}
+.block-offer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20%;
+  height: 100%;
+  clip-path: ellipse(25% 58% at 99% 48%);
+  background: #f7f2ee;
+  display: none;
+  z-index: 14;
+}
+@media (max-width: 768px) {
+  .block-offer::before {
+    display: block;
+    width: 100%;
+    height: 20%;
+    top: auto;
+    bottom: 0;
+    clip-path: ellipse(50% 10% at 50% 100%);
+  }
 }
 .block-offer .container {
   position: relative;
@@ -1858,25 +1892,6 @@ a {
           transform: rotate(45deg);
 }
 
-body::after {
-  content: "";
-  background: rgba(16, 36, 24, 0.2);
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  -webkit-transition: opacity 0.8s ease 0s;
-  transition: opacity 0.8s ease 0s;
-  pointer-events: none;
-  z-index: 149;
-}
-
-.popup-show body::after {
-  opacity: 1;
-}
-
 .popup {
   position: fixed;
   top: 0;
@@ -2226,30 +2241,9 @@ body::after {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  gap: clamp(15px, 2vw, 36px);
+  gap: clamp(25px, 2vw, 36px);
   padding: clamp(20px, 3vw, 55px) 0px clamp(20px, 6.5vw, 118px) 0px;
   border-top: 1px solid #1e2d40;
-}
-.footer__bottom ul {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  gap: clamp(15px, 2vw, 36px) clamp(15px, 4.2vw, 76px);
-}
-.footer__bottom ul li {
-  font-size: clamp(12px, 1vw, 18px);
-  line-height: 120%;
-  font-weight: 400;
-  color: #fff;
-}
-.footer__bottom ul li a {
-  -webkit-transition: opacity 0.3s;
-  transition: opacity 0.3s;
-}
-.footer__bottom ul li a:hover {
-  opacity: 0.7;
 }
 @media (max-width: 768px) {
   .footer__bottom {
@@ -2262,18 +2256,60 @@ body::after {
             justify-content: center;
     padding: 20px 0px;
   }
+}
+.footer__bottom ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: clamp(15px, 2vw, 36px) clamp(15px, 4.2vw, 76px);
+}
+@media (max-width: 768px) {
+  .footer__bottom ul {
+    width: 100%;
+  }
+}
+@media (max-width: 370px) {
   .footer__bottom ul {
     -webkit-box-orient: vertical;
-    -webkit-box-direction: reverse;
-        -ms-flex-direction: column-reverse;
-            flex-direction: column-reverse;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
   }
+}
+.footer__bottom ul li {
+  font-size: clamp(12px, 1vw, 18px);
+  line-height: 120%;
+  font-weight: 400;
+  color: #fff;
+}
+@media (max-width: 768px) {
+  .footer__bottom ul li {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 1 calc(50% - 15px);
+            flex: 0 1 calc(50% - 15px);
+  }
+  .footer__bottom ul li:nth-child(even) {
+    text-align: right;
+  }
+}
+@media (max-width: 370px) {
+  .footer__bottom ul li {
+    -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+  }
+  .footer__bottom ul li:nth-child(even) {
+    text-align: left;
+  }
+}
+.footer__bottom ul li a {
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+}
+.footer__bottom ul li a:hover {
+  opacity: 0.7;
 }
 .footer__map {
   display: -webkit-box;
@@ -2290,6 +2326,12 @@ body::after {
   -webkit-transition: opacity 0.3s;
   transition: opacity 0.3s;
   white-space: nowrap;
+}
+@media (max-width: 768px) {
+  .footer__map {
+    text-align: left;
+    width: 100%;
+  }
 }
 .footer__map img {
   width: clamp(15px, 1.6vw, 29px);
