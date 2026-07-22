@@ -557,6 +557,13 @@ a {
   padding: 205px 0px 100px 0px;
   overflow: hidden;
 }
+@media (max-width: 992px) {
+  .block-intro {
+    min-height: -webkit-fit-content;
+    min-height: -moz-fit-content;
+    min-height: fit-content;
+  }
+}
 .block-intro::before {
   content: "";
   background: rgba(1, 22, 41, 0.5);
@@ -607,6 +614,13 @@ a {
 .block-services {
   overflow: hidden;
   min-height: 100dvh;
+}
+@media (max-width: 992px) {
+  .block-services {
+    min-height: -webkit-fit-content;
+    min-height: -moz-fit-content;
+    min-height: fit-content;
+  }
 }
 .block-services__content {
   display: -webkit-box;
@@ -852,6 +866,13 @@ a {
   min-height: 100dvh;
   overflow: hidden;
 }
+@media (max-width: 992px) {
+  .block-contact-us {
+    min-height: -webkit-fit-content;
+    min-height: -moz-fit-content;
+    min-height: fit-content;
+  }
+}
 @media (max-width: 768px) {
   .block-contact-us {
     padding: 0px 0px 50px 0px;
@@ -892,6 +913,13 @@ a {
   min-height: 100dvh;
   position: relative;
   overflow: hidden;
+}
+@media (max-width: 992px) {
+  .block-offer {
+    min-height: -webkit-fit-content;
+    min-height: -moz-fit-content;
+    min-height: fit-content;
+  }
 }
 .block-offer::before {
   content: "";
@@ -1188,6 +1216,13 @@ a {
   min-height: 100dvh;
   overflow: hidden;
 }
+@media (max-width: 992px) {
+  .block-section {
+    min-height: -webkit-fit-content;
+    min-height: -moz-fit-content;
+    min-height: fit-content;
+  }
+}
 .block-section__content {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1274,6 +1309,13 @@ a {
   position: relative;
   overflow: hidden;
   padding: clamp(60px, 8vw, 109px) clamp(0px, 4vw, 73px) clamp(60px, 8vw, 109px) clamp(0px, 3vw, 55px);
+}
+@media (max-width: 992px) {
+  .block-reviews {
+    min-height: -webkit-fit-content;
+    min-height: -moz-fit-content;
+    min-height: fit-content;
+  }
 }
 .block-reviews__bg {
   position: absolute;
@@ -1492,6 +1534,13 @@ a {
 
 .block-questions {
   min-height: 100dvh;
+}
+@media (max-width: 992px) {
+  .block-questions {
+    min-height: -webkit-fit-content;
+    min-height: -moz-fit-content;
+    min-height: fit-content;
+  }
 }
 .block-questions__content {
   display: -webkit-box;
