@@ -948,12 +948,14 @@ a {
 }
 .block-offer__bg1 {
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+  -o-object-position: bottom;
+     object-position: bottom;
 }
 .block-offer__content {
   padding: clamp(25px, 2.5vw, 46px) 1.6vw clamp(150px, 23.5vw, 428px) 1.6vw;
@@ -1363,20 +1365,20 @@ a {
   width: clamp(200px, 15.8vw, 288px);
   margin-right: 10px;
   margin-left: 10px;
-  -webkit-transition: margin 0.8s ease;
-  transition: margin 0.8s ease;
+  -webkit-transition: margin 0.38s ease;
+  transition: margin 0.38s ease;
 }
-.block-reviews__slide.swiper-slide-active {
+.block-reviews__slide.swiper-slide-active, .block-reviews__slide.swiper-slide-visible.swiper-slide-prev ~ .swiper-slide-active {
   margin-right: 30px;
   margin-left: 30px;
 }
 @media (max-width: 992px) {
-  .block-reviews__slide.swiper-slide-active {
+  .block-reviews__slide.swiper-slide-active, .block-reviews__slide.swiper-slide-visible.swiper-slide-prev ~ .swiper-slide-active {
     margin-right: 20px;
     margin-left: 20px;
   }
 }
-.block-reviews__slide.swiper-slide-active .card-review {
+.block-reviews__slide.swiper-slide-active .card-review, .block-reviews__slide.swiper-slide-visible.swiper-slide-prev ~ .swiper-slide-active .card-review {
   padding: clamp(40px, 4.2vw, 76px) clamp(12px, 1vw, 18px) clamp(35px, 2.8vw, 51px) clamp(15px, 2vw, 36px);
   border: 2px solid #03abd0;
   -webkit-transform: scale(1.15);
@@ -1384,7 +1386,7 @@ a {
   -webkit-transform-origin: center center;
           transform-origin: center center;
 }
-.block-reviews__slide.swiper-slide-active .card-review__text p {
+.block-reviews__slide.swiper-slide-active .card-review__text p, .block-reviews__slide.swiper-slide-visible.swiper-slide-prev ~ .swiper-slide-active .card-review__text p {
   font-size: clamp(14px, 1vw, 18px);
 }
 
