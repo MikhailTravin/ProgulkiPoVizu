@@ -498,9 +498,9 @@ if (document.querySelector('.block-reviews__slider')) {
     observer: true,
     observeParents: true,
     slidesPerView: 'auto',
-    spaceBetween: 0, // <-- здесь 0
+    spaceBetween: 0,
     speed: 800,
-    centeredSlides: true,
+    //centeredSlides: true,
     navigation: {
       prevEl: '.block-reviews__arrow-prev',
       nextEl: '.block-reviews__arrow-next',
