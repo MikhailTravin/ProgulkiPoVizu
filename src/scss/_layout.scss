@@ -9,7 +9,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
-  overflow: hidden;
+  //overflow: hidden;
+  @media (max-width: 992px) {
+    overflow: hidden;
+  }
   &::before {
     content: "";
     cursor: pointer;
