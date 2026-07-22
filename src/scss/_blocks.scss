@@ -361,11 +361,12 @@
 
     &__bg1 {
         position: absolute;
-        top: 0;
+        bottom: 0;
         left: 0;
         width: 100%;
         height: 100%;
         object-fit: cover;
+        object-position: bottom;
     }
 
     // .block-offer__content
@@ -758,8 +759,9 @@
         width: clamp(200px, 15.8vw, 288px);
         margin-right: 10px;
         margin-left: 10px;
-        transition: margin 0.8s ease;
-        &.swiper-slide-active {
+        transition: margin 0.38s ease;
+        &.swiper-slide-active,
+        &.swiper-slide-visible.swiper-slide-prev ~ .swiper-slide-active {
             margin-right: 30px;
             margin-left: 30px;
             @media (max-width: 992px) {
