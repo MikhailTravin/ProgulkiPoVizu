@@ -3,6 +3,9 @@
     min-height: 100dvh;
     padding: clamp(70px, 205px, 205px) 0px clamp(70px, 100px, 100px) 0px;
     overflow: hidden;
+    @media (max-width: 992px) {
+        min-height: fit-content;
+    }
     &::before {
         content: "";
         background: rgba(1, 22, 41, 0.5);
@@ -56,6 +59,9 @@
 .block-services {
     overflow: hidden;
     min-height: 100dvh;
+    @media (max-width: 992px) {
+        min-height: fit-content;
+    }
     // .block-services__content
 
     &__content {
@@ -290,6 +296,9 @@
 .block-contact-us {
     min-height: 100dvh;
     overflow: hidden;
+    @media (max-width: 992px) {
+        min-height: fit-content;
+    }
     @media (max-width: 768px) {
         padding: 0px 0px 50px 0px;
     }
@@ -322,6 +331,9 @@
     min-height: 100dvh;
     position: relative;
     overflow: hidden;
+    @media (max-width: 992px) {
+        min-height: fit-content;
+    }
     &::before {
         content: "";
         position: absolute;
@@ -597,6 +609,9 @@
 .block-section {
     min-height: 100dvh;
     overflow: hidden;
+    @media (max-width: 992px) {
+        min-height: fit-content;
+    }
     // .block-section__content
 
     &__content {
@@ -680,6 +695,9 @@
     position: relative;
     overflow: hidden;
     padding: clamp(60px, 8vw, 109px) clamp(0px, 4vw, 73px) clamp(60px, 8vw, 109px) clamp(0px, 3vw, 55px);
+    @media (max-width: 992px) {
+        min-height: fit-content;
+    }
     // .block-reviews__bg
 
     &__bg {
@@ -896,6 +914,9 @@
 
 .block-questions {
     min-height: 100dvh;
+    @media (max-width: 992px) {
+        min-height: fit-content;
+    }
     // .block-questions__content
 
     &__content {
