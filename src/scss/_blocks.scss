@@ -328,7 +328,6 @@
 //========================================================================================================================================================
 
 .block-offer {
-    min-height: 100dvh;
     position: relative;
     overflow: hidden;
     @media (max-width: 992px) {
@@ -549,6 +548,7 @@
         }
         @media (max-width: 480px) {
             left: -15%;
+            bottom: 12%;
         }
         img {
             width: 50%;
@@ -569,6 +569,7 @@
         transform: translate(-50%, 0px);
         @media (max-width: 480px) {
             left: 35%;
+            bottom: 5%;
         }
         img {
             width: 140%;
@@ -594,6 +595,7 @@
         }
         @media (max-width: 480px) {
             right: -15%;
+            bottom: 8%;
         }
         img {
             width: 40%;
@@ -610,12 +612,15 @@
 .block-section {
     min-height: 100dvh;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
     @media (max-width: 992px) {
         min-height: fit-content;
     }
     // .block-section__content
 
     &__content {
+        flex: 1 1 auto;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         @media (max-width: 768px) {
@@ -656,10 +661,10 @@
 
     &__image {
         position: relative;
-        max-height: clamp(300px, 56vw, 1019px);
+        //max-height: clamp(300px, 56vw, 1019px);
         overflow: hidden;
         margin-right: clamp(0px, -3vw, -55px);
-
+        height: auto;
         @media (max-width: 768px) {
             margin-right: 0px;
             margin-bottom: clamp(0px, -3vw, -55px);
@@ -790,7 +795,9 @@
     display: flex;
     flex-direction: column;
     gap: clamp(20px, 1.7vw, 31px);
-    transition: transform 0.5s ease;
+    transition:
+        transform 0.5s ease,
+        border 0.3s;
     .rating {
         --star-gap: clamp(3px, 0.3vw, 5px);
         --star-width: clamp(16px, 0.9vw, 29px);
@@ -928,7 +935,7 @@
     // .block-questions__images
 
     &__images {
-        flex: 0 1 36%;
+        flex: 0 1 40vw;
         position: relative;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -953,7 +960,7 @@
 
     &__body {
         position: sticky;
-        top: 0;
+        top: 20px;
         height: 100%;
         max-width: 1100px;
         flex: 0 1 61vw;
@@ -962,6 +969,8 @@
         flex-direction: column;
         gap: clamp(20px, 1vw, 18px);
         @media (max-width: 992px) {
+            position: relative;
+            top: 0;
             padding: 50px 20px;
             flex: 0 1 auto;
             width: 100%;
