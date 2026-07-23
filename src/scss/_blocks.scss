@@ -610,17 +610,32 @@
 //========================================================================================================================================================
 
 .block-section {
-    min-height: 100dvh;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    min-height: 100dvh;
+    max-height: clamp(300px, 56vw, 1019px);
+    height: auto;
     @media (max-width: 992px) {
         min-height: fit-content;
     }
+
+    &__wrapper {
+        display: flex;
+        height: 100%;
+        min-height: 100dvh;
+        max-height: clamp(300px, 56vw, 1019px);
+        overflow: hidden;
+
+        @media (max-width: 992px) {
+            min-height: fit-content;
+            max-height: none;
+        }
+    }
+
     // .block-section__content
 
     &__content {
         flex: 1 1 auto;
+        height: auto;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         @media (max-width: 768px) {
@@ -661,10 +676,10 @@
 
     &__image {
         position: relative;
-        //max-height: clamp(300px, 56vw, 1019px);
+        height: 100%;
+        min-height: 0;
         overflow: hidden;
         margin-right: clamp(0px, -3vw, -55px);
-        height: auto;
         @media (max-width: 768px) {
             margin-right: 0px;
             margin-bottom: clamp(0px, -3vw, -55px);
@@ -790,15 +805,29 @@
 }
 .card-review {
     border: 2px solid #cbcbd3;
+    background-color: rgba(255, 255, 255, 0.5);
     border-radius: 15px;
     padding: clamp(30px, 2.5vw, 46px) clamp(12px, 1vw, 18px) clamp(30px, 2.8vw, 51px) clamp(15px, 2vw, 36px);
     display: flex;
     flex-direction: column;
+    position: relative;
     gap: clamp(20px, 1.7vw, 31px);
     transition:
         transform 0.5s ease,
         border 0.3s;
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+    }
     .rating {
+        position: relative;
+        z-index: 10;
         --star-gap: clamp(3px, 0.3vw, 5px);
         --star-width: clamp(16px, 0.9vw, 29px);
         --star-height: clamp(15px, 0.9vw, 27px);
@@ -806,6 +835,8 @@
     // .card-review__top
 
     &__top {
+        position: relative;
+        z-index: 10;
         display: flex;
         flex-direction: column;
         gap: clamp(8px, 0.6vw, 11px);
@@ -838,6 +869,8 @@
     // .card-review__bottom
 
     &__bottom {
+        position: relative;
+        z-index: 10;
         display: flex;
         flex-direction: column;
         gap: clamp(10px, 0.9vw, 16px);
@@ -960,7 +993,7 @@
 
     &__body {
         position: sticky;
-        top: 20px;
+        top: 50px;
         height: 100%;
         max-width: 1100px;
         flex: 0 1 61vw;
