@@ -910,8 +910,16 @@ a {
 }
 
 .block-offer {
+  min-height: 100dvh;
   position: relative;
   overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 @media (max-width: 992px) {
   .block-offer {
@@ -943,6 +951,9 @@ a {
   }
 }
 .block-offer .container {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
   position: relative;
 }
 .block-offer__bg1 {
@@ -1443,7 +1454,7 @@ a {
   width: 100%;
   height: 100%;
   border-radius: 15px;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(50px);
 }
 .card-review .rating {
   position: relative;
@@ -1525,6 +1536,12 @@ a {
   }
 }
 
+.block-reviews__slide,
+.block-reviews__slide * {
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
 .heading-complex {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1580,6 +1597,13 @@ a {
 
 .block-questions {
   min-height: 100dvh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 @media (max-width: 992px) {
   .block-questions {
@@ -1589,6 +1613,9 @@ a {
   }
 }
 .block-questions__content {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
