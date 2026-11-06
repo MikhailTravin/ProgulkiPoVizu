@@ -1,0 +1,58 @@
+.main-wrapper-outer {
+  width: 100%;
+  min-height: 100%;
+  max-width: var(--main-outer-width);
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  //overflow: hidden;
+  @media (max-width: 992px) {
+    overflow: hidden;
+  }
+  &::before {
+    content: "";
+    cursor: pointer;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 49;
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .menu-open & {
+    &::before {
+      content: "";
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+}
+
+.main {
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.container {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 100%;
+  padding: 0px 30px;
+  @media (min-width: 1821px) {
+    max-width: 1820px;
+  }
+  @media (max-width: 992px) {
+    padding: 0px 20px;
+  }
+  @media (max-width: 768px) {
+    padding: 0px 16px;
+  }
+}
